@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8162571807751751205
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6e08f114f8d774487f763df7d78e36, type: 3}
+  m_Name: DeNorSobOutlineVolumeComponent
+  m_EditorClassIdentifier: 
+  active: 1
+  OutlineWidth:
+    m_OverrideState: 1
+    m_Value: 1.5
+  DepthThreshold:
+    m_OverrideState: 1
+    m_Value: 900
+  NormalThreshold:
+    m_OverrideState: 1
+    m_Value: 1.3
+  NormalMin:
+    m_OverrideState: 0
+    m_Value: 1
+  NormalMax:
+    m_OverrideState: 0
+    m_Value: 1
+  SobelOutline:
+    m_OverrideState: 1
+    m_Value: 1
+  SobelOutlineThreshold:
+    m_OverrideState: 1
+    m_Value: 300
+  WhiteThreshold:
+    m_OverrideState: 1
+    m_Value: 0
+  BlackThreshold:
+    m_OverrideState: 1
+    m_Value: 0
+  OutlineColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  ColorIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  MixFullScreenColor:
+    m_OverrideState: 1
+    m_Value: 1
+  ShowOutlineOnly:
+    m_OverrideState: 1
+    m_Value: 0
+  MixDephNormalAndSobelOutline:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Global Volume Profile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -8162571807751751205}
