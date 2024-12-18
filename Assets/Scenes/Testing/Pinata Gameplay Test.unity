@@ -271,9 +271,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PierceValue: 1
-  timeMultiplier: 0.05
-  id: 0
-  hangTime: 0.1
+  timeMultiplier: 0.3
+  hangTime: 0.5
+  inTransitionProportion: 0.4
+  outTransitionProportion: 0.25
 --- !u!114 &61356822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +525,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2423ff1ab104f4044aea5c94ad3e7aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tweenIn:
+    MMTweenDefinitionType: 0
+    MMTweenCurve: 19
+    Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Initialized: 0
+    ConditionPropertyName: 
+    EnumConditionPropertyName: 
+    EnumConditions: 
+  tweenOut:
+    MMTweenDefinitionType: 0
+    MMTweenCurve: 20
+    Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Initialized: 0
+    ConditionPropertyName: 
+    EnumConditionPropertyName: 
+    EnumConditions: 
   adjustFixedTimestep: 1
   defaultFixedTimestep: 0.02
   adjustDefaultMaximumAllowedTimestep: 1

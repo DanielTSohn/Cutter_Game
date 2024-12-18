@@ -82,10 +82,10 @@ public class ManualBehaviour : CutterBehaviour
         sliceables.Clear();
         for (int i = 0; i < hitCount; i++)
         {
-            if (colliders[i] != null && colliders[i].TryGetComponent(out Sliceable pierceable))
+            if (colliders[i] != null && colliders[i].TryGetComponent(out Sliceable sliceable))
             {
-                sliceables.Add(pierceable);
-                pierceCount -= pierceable.PierceValue;
+                sliceables.Add(sliceable);
+                pierceCount -= sliceable.PierceValue;
                 if (pierceCount < 0)
                 {
                     hitCount = i;
@@ -97,9 +97,9 @@ public class ManualBehaviour : CutterBehaviour
         if (sliceables.Count > previousSliceables.Count)
         {
             sliceables.ExceptWith(previousSliceables);
-            foreach (var pierceable in sliceables)
+            foreach (var sliceable in sliceables)
             {
-                pierceable.TriggerHitFeedback();
+                sliceable.TriggerHitFeedback();
             }
         }
         else
@@ -141,12 +141,16 @@ public class ManualBehaviour : CutterBehaviour
             }
         }
 
-        if (info.MeshTarget.TryGetComponent(out Sliceable pierceable))
+        if (info.MeshTarget.TryGetComponent(out Sliceable sliceable))
         {
+            sliceable.TriggerSliceFeedback();
+
             foreach (var target in data.CreatedTargets)
             {
                 if (target == null) continue;
-                target.gameObject.AddComponent<Sliceable>().Initialize(pierceable);
+                var addedSliceable = target.gameObject.AddComponent<Sliceable>();
+                addedSliceable.Initialize(sliceable);
+                previousSliceables.Add(addedSliceable);
             }
         }
     }

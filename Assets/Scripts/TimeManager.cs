@@ -1,9 +1,8 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static Unity.Cinemachine.CinemachineFreeLookModifier;
+using VInspector;
 
 public class TimeManager : MonoBehaviour
 {
@@ -25,21 +24,25 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    public class TimeQueueItem
+    public class TimeModifier
     {
-        public TimeQueueItem(float modifier)
+        public TimeModifier(float value)
         {
-            Modifier = modifier;
-            Count = 1;
+            Value = value;
         }
 
-        public float Modifier;
-        public int Count;
+        public float Value;
+        public int Count = 1;
     }
 
     public static TimeManager Instance { get; private set; }
     public bool MenuPause { get; private set; }
 
+    [SerializeField]
+    private MMTweenType tweenIn;
+    [SerializeField]
+    private MMTweenType tweenOut;
+    
     [SerializeField]
     private bool adjustFixedTimestep;
     public float DefaultFixedTimestep => defaultFixedTimestep;
@@ -62,9 +65,11 @@ public class TimeManager : MonoBehaviour
     [SerializeField, MMCondition("adjustMaximumParticleTimestep", true)]
     private float defaultMaximumParticleTimestep = 0.03f;
 
-    private float modifiedTimeScale;
-    private readonly Dictionary<int, TimeQueueItem> timeRequests = new();
+    private readonly Dictionary<string, TimeModifier> timeModifiers = new();
     private bool modify;
+    
+    private WaitUntil waitUntilMenu;
+    private WaitWhile waitWhileMenu;
 
     private void Awake()
     {
@@ -72,6 +77,8 @@ public class TimeManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(Instance);
+            waitUntilMenu = new(() => MenuPause);
+            waitWhileMenu = new(() => MenuPause);
             ResetTimeScale();
         }
         else if (Instance != this)
@@ -81,54 +88,143 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if (modify) ApplyTimeScaleMultiply();
     }
 
-    private IEnumerator CountUndoMultiply(float scale, float time, int id = 0)
+    [Button]
+    private void TestMenuPause()
     {
-        yield return new WaitForGameSeconds(time);
-        RemoveMultiply(scale, id);
+        MenuPause = true;
     }
-    private void ModifyTime(float scale)
+    [Button]
+    private void TestMenuResume()
     {
-        modifiedTimeScale *= scale;
-        modify = true;
+        MenuPause = false;
     }
-    public void MultiplyTimeScale(float scale, int id = 0)
+
+    private IEnumerator LerpMultiply(string key, float scale, float duration)
     {
-        if (timeRequests.TryGetValue(id, out TimeQueueItem item))
+        AddTimeModifier(key, scale);
+        float time = 0;
+        while (time < duration)
         {
-            if (item.Count == 0)
+            timeModifiers[key].Value = Mathf.Lerp(1, scale, tweenIn.Evaluate(time / duration));
+            SetModifyFlag();
+
+            if (!MenuPause)
             {
-                item.Count++;
-                ModifyTime(scale);
+                time += Time.unscaledDeltaTime;
+                yield return null;
             }
+            else yield return waitWhileMenu;
+        }
+
+        timeModifiers[key].Value = scale;
+        SetModifyFlag();
+    }
+    private IEnumerator LerpRemoveMultiply(string key, float scale, float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            timeModifiers[key].Value = Mathf.Lerp(scale, 1, tweenOut.Evaluate(time / duration));
+            SetModifyFlag();
+
+            if (!MenuPause)
+            {
+                time += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            else yield return waitWhileMenu;
+        }
+
+        RemoveMultiply(key);
+    }
+
+    private IEnumerator CountUndoMultiply(string key, float scale, float time)
+    {
+        MultiplyTimeScale(key, scale);
+        yield return new WaitForGameSeconds(time);
+        RemoveMultiply(key);
+    }
+    private IEnumerator CountUndoMultiplyLerp(string key, float scale, float duration, float smoothIn, float smoothOut)
+    {
+        bool modify = true;
+        if (timeModifiers.TryGetValue(key, out var modifier) && modifier.Count > 0)
+        {
+            modify = false;
+        }
+
+        if (modify)
+        {
+            float inDuration = duration * smoothIn;
+            float outDuration = duration * smoothOut;
+            yield return StartCoroutine(LerpMultiply(key, scale, inDuration));
+            yield return new WaitForGameSeconds(duration - inDuration - outDuration);
+            yield return StartCoroutine(LerpRemoveMultiply(key, scale, outDuration));
         }
         else
         {
-            ModifyTime(scale);
-            timeRequests.Add(id, new TimeQueueItem(scale));
+            yield return new WaitForGameSeconds(duration);
+            RemoveMultiply(key);
         }
     }
-    public void MultiplyTimeScale(float scale, float time, int id = 0)
+
+    private void SetModifyFlag()
     {
-        MultiplyTimeScale(scale, id);
-        StartCoroutine(CountUndoMultiply(scale, time));
+        if (!modify) modify = true;
     }
-    public void RemoveMultiply(float scale, int id = 0)
+
+    public void AddTimeModifier(string key, float scale)
     {
-        if (timeRequests.TryGetValue(id,out TimeQueueItem item) && item.Count > 0)
+        if (timeModifiers.TryGetValue(key, out var modifier))
         {
-            item.Count--;
-            ModifyTime(1 / scale);
+            if (modifier.Count++ > 0)
+            {
+                return;
+            }
+            else SetModifyFlag();
+        }
+        else
+        {
+            timeModifiers.Add(key, new(scale));
+            SetModifyFlag();
+        }
+    }
+
+    public void MultiplyTimeScale(string key, float scale)
+    {
+        AddTimeModifier(key, scale);
+    }
+    public void MultiplyTimeScale(string key, float scale, float time)
+    {
+        StartCoroutine(CountUndoMultiply(key, scale , time));
+    }
+
+    public void MultiplyTimeScaleSmooth(string key, float scale, float smoothTime)
+    {
+        StartCoroutine(LerpMultiply(key, scale, smoothTime));
+    }
+    public void MultiplyTimeScaleSmooth(string key, float scale, float time, float smoothIn, float smoothOut)
+    {
+        StartCoroutine(CountUndoMultiplyLerp(key, scale, time, smoothIn, smoothOut));
+    }
+
+    public void RemoveMultiply(string key)
+    {
+        if (timeModifiers.TryGetValue(key, out var modifier))
+        {
+            if (modifier.Count > 0 && --modifier.Count <= 0)
+            {
+                SetModifyFlag();
+            }
         }
     }
 
     public void ResetTimeScale()
     {
-        modifiedTimeScale = DefaultTimeScale;
         Time.timeScale = DefaultTimeScale;
         Time.fixedDeltaTime = DefaultFixedTimestep;
         Time.maximumDeltaTime = DefaultMaximumAllowedTimestep;
@@ -137,10 +233,14 @@ public class TimeManager : MonoBehaviour
 
     private void ApplyTimeScaleMultiply()
     {
-        Time.timeScale = modifiedTimeScale;
-        if (adjustFixedTimestep) Time.fixedDeltaTime = DefaultFixedTimestep * modifiedTimeScale;
-        if (adjustDefaultMaximumAllowedTimestep) Time.maximumDeltaTime = DefaultMaximumAllowedTimestep * modifiedTimeScale;
-        if (adjustMaximumParticleTimestep) Time.maximumParticleDeltaTime = modifiedTimeScale;
+        double calculatedScale = DefaultTimeScale;
+        System.Threading.Tasks.Parallel.ForEach(timeModifiers.Values, (item) => { if (item.Count > 0) calculatedScale *= item.Value; });
+
+        float castModifiedScale = (float)calculatedScale;
+        Time.timeScale = castModifiedScale;
+        if (adjustFixedTimestep) Time.fixedDeltaTime = DefaultFixedTimestep * castModifiedScale;
+        if (adjustDefaultMaximumAllowedTimestep) Time.maximumDeltaTime = DefaultMaximumAllowedTimestep * castModifiedScale;
+        if (adjustMaximumParticleTimestep) Time.maximumParticleDeltaTime = castModifiedScale;
         modify = false;
     }
 }
