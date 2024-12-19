@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 61356816}
   - component: {fileID: 61356815}
   - component: {fileID: 61356822}
-  - component: {fileID: 61356821}
   - component: {fileID: 61356820}
   - component: {fileID: 61356823}
   m_Layer: 7
@@ -254,27 +253,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &61356821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61356814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a6a0f7c051abd4583da8769ed2e7fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PierceValue: 1
-  timeMultiplier: 0.3
-  hangTime: 0.5
-  inTransitionProportion: 0.4
-  outTransitionProportion: 0.25
 --- !u!114 &61356822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,7 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tweenIn:
     MMTweenDefinitionType: 0
-    MMTweenCurve: 19
+    MMTweenCurve: 26
     Curve:
       serializedVersion: 2
       m_Curve: []
@@ -540,7 +522,7 @@ MonoBehaviour:
     EnumConditions: 
   tweenOut:
     MMTweenDefinitionType: 0
-    MMTweenCurve: 20
+    MMTweenCurve: 7
     Curve:
       serializedVersion: 2
       m_Curve: []
@@ -769,7 +751,7 @@ Transform:
   m_GameObject: {fileID: 805077054}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.66, z: 0}
+  m_LocalPosition: {x: 0, y: -3.08, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1085,7 +1067,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!135 &1049211008
@@ -1134,7 +1116,7 @@ Transform:
   m_GameObject: {fileID: 1328219963}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 1.87, z: 5}
+  m_LocalPosition: {x: 0.01, y: 4.71, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
