@@ -165,6 +165,18 @@ namespace MagicaCloth2
                         int tindex = referenceInitSetupData.useTransformIndexArray[i];
                         transformList[tindex] = referenceInitSetupData.transformArray[i];
                     }
+
+                    // SkinnedMeshRendererかつオリジナルメッシュが存在する場合はSkinnedMeshRenererを復元する
+                    // 実行時キャラクターコピーへの対応
+                    if (sren && referenceInitSetupData.originalMesh && sren.sharedMesh != referenceInitSetupData.originalMesh && skinBoneCount > 0)
+                    {
+                        sren.sharedMesh = referenceInitSetupData.originalMesh;
+                        var newBones = new Transform[skinBoneCount];
+                        transformList.CopyTo(0, newBones, 0, skinBoneCount);
+                        sren.bones = newBones;
+                        sren.rootBone = transformList[skinRootBoneIndex];
+                        //Debug.Log($"★SkinnedMeshRenderer再構成");
+                    }
                 }
                 else if (sren)
                 {
@@ -706,7 +718,8 @@ namespace MagicaCloth2
             if (transformList != null)
             {
                 foreach (var t in transformList)
-                    transformSet.Add(t);
+                    if (t)
+                        transformSet.Add(t);
             }
         }
 

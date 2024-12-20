@@ -3204,8 +3204,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 124221
+      initVersion: 2
+      localHash: 136512
       globalHash: 2129598432
       clothType: 0
       clothTransformRecord:
@@ -4660,6 +4660,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 7165509772411951078, guid: 5c78fba67bb448b42b8dc9ef978170e0, type: 3}
     selectionData:
       positions:
       - x: -0.03769292

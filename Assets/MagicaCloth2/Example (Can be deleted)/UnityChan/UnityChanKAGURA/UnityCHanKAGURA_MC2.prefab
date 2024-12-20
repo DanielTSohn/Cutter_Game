@@ -397,8 +397,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 27325
+      initVersion: 2
+      localHash: 37201
       globalHash: 1860966191
       clothType: 1
       clothTransformRecord:
@@ -773,6 +773,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.0945709
@@ -1300,8 +1301,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 28259
+      initVersion: 2
+      localHash: 38135
       globalHash: -772357893
       clothType: 1
       clothTransformRecord:
@@ -1716,6 +1717,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.04430598
@@ -2257,8 +2259,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 58798
+      initVersion: 2
+      localHash: 68674
       globalHash: -538232846
       clothType: 1
       clothTransformRecord:
@@ -3113,6 +3115,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.091634706
@@ -3693,8 +3696,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 83469
+      initVersion: 2
+      localHash: 93888
       globalHash: 1446161242
       clothType: 0
       clothTransformRecord:
@@ -4789,6 +4792,7 @@ MonoBehaviour:
           x: 0.01
           y: 0.009999995
           z: 0.009999995
+        originalMesh: {fileID: -4672812091889941496, guid: 13d8e3dd1da9f6845b5d673e9ac54ecf, type: 3}
     selectionData:
       positions:
       - x: -0.104365185
@@ -5825,8 +5829,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 22301
+      initVersion: 2
+      localHash: 32177
       globalHash: -1803439816
       clothType: 1
       clothTransformRecord:
@@ -6121,6 +6125,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: -0.035720687
@@ -6584,8 +6589,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 72406
+      initVersion: 2
+      localHash: 82584
       globalHash: -2034278091
       clothType: 0
       clothTransformRecord:
@@ -6980,6 +6985,7 @@ MonoBehaviour:
           x: 0.01
           y: 0.009999995
           z: 0.009999995
+        originalMesh: {fileID: -6450333831153257401, guid: 13d8e3dd1da9f6845b5d673e9ac54ecf, type: 3}
       - setupType: 0
         vertexCount: 238
         hasSkinnedMesh: 1
@@ -7328,6 +7334,7 @@ MonoBehaviour:
           x: 0.01
           y: 0.009999995
           z: 0.009999995
+        originalMesh: {fileID: 4951875617243109493, guid: 13d8e3dd1da9f6845b5d673e9ac54ecf, type: 3}
     selectionData:
       positions:
       - x: -0.14433476
@@ -8327,8 +8334,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 28976
+      initVersion: 2
+      localHash: 38852
       globalHash: 1546388789
       clothType: 1
       clothTransformRecord:
@@ -8683,6 +8690,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.072577335
@@ -9299,8 +9307,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 19322
+      initVersion: 2
+      localHash: 29198
       globalHash: -1686416036
       clothType: 1
       clothTransformRecord:
@@ -9535,6 +9543,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: -0.2737836
@@ -10036,8 +10045,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 24813
+      initVersion: 2
+      localHash: 34689
       globalHash: 1660609734
       clothType: 1
       clothTransformRecord:
@@ -10372,6 +10381,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.06253809
@@ -10842,8 +10852,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 19322
+      initVersion: 2
+      localHash: 29198
       globalHash: 1511040123
       clothType: 1
       clothTransformRecord:
@@ -11078,6 +11088,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.2737836
@@ -11528,8 +11539,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 18066
+      initVersion: 2
+      localHash: 27942
       globalHash: 1423539465
       clothType: 1
       clothTransformRecord:
@@ -11744,6 +11755,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: -0.00007874992
@@ -12193,8 +12205,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 28259
+      initVersion: 2
+      localHash: 38135
       globalHash: 310270869
       clothType: 1
       clothTransformRecord:
@@ -12609,6 +12621,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: -0.044463098
@@ -13158,8 +13171,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 69562
+      initVersion: 2
+      localHash: 79438
       globalHash: -1096573851
       clothType: 1
       clothTransformRecord:
@@ -14194,6 +14207,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: -0.000078714686
@@ -14855,8 +14869,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 22301
+      initVersion: 2
+      localHash: 32177
       globalHash: -553455847
       clothType: 1
       clothTransformRecord:
@@ -15151,6 +15165,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.02957327
@@ -18744,8 +18759,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 46125
+      initVersion: 2
+      localHash: 56651
       globalHash: 2024545218
       clothType: 0
       clothTransformRecord:
@@ -19280,6 +19295,7 @@ MonoBehaviour:
           x: 0.01
           y: 0.009999995
           z: 0.009999995
+        originalMesh: {fileID: 1262834296741406522, guid: 13d8e3dd1da9f6845b5d673e9ac54ecf, type: 3}
     selectionData:
       positions:
       - x: -0.009329831
@@ -30653,8 +30669,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 46124
+      initVersion: 2
+      localHash: 56649
       globalHash: 513141978
       clothType: 0
       clothTransformRecord:
@@ -31189,6 +31205,7 @@ MonoBehaviour:
           x: 0.01
           y: 0.009999995
           z: 0.009999995
+        originalMesh: {fileID: 1404485413897638516, guid: 13d8e3dd1da9f6845b5d673e9ac54ecf, type: 3}
     selectionData:
       positions:
       - x: -0.009329831
@@ -38363,8 +38380,8 @@ MonoBehaviour:
       springNoise: 0
   serializeData2:
     initData:
-      initVersion: 1
-      localHash: 70793
+      initVersion: 2
+      localHash: 80669
       globalHash: -35828776
       clothType: 10
       clothTransformRecord:
@@ -38619,6 +38636,7 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+        originalMesh: {fileID: 0}
     selectionData:
       positions:
       - x: 0.045758355

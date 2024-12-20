@@ -77,7 +77,9 @@ namespace RealToon.Script
                 {
                     if (checkstart == true)
                     {
-                        if (Material.IsKeywordEnabled("N_F_ST_ON") == false && Material.IsKeywordEnabled("N_F_STSDFM_ON") == false)
+                        if ( (Material.IsKeywordEnabled("N_F_ST_ON") == false && Material.IsKeywordEnabled("N_F_STSDFM_ON") == false) ||
+                            (Material.IsKeywordEnabled("N_F_ST_ON") == true && Material.IsKeywordEnabled("N_F_STSDFM_ON") == false) ||
+                            (Material.IsKeywordEnabled("N_F_ST_ON") == false && Material.IsKeywordEnabled("N_F_STSDFM_ON") == true) )
                         {
                             Material.EnableKeyword("N_F_ST_ON");
                             Material.SetFloat("_N_F_ST", 1.0f);

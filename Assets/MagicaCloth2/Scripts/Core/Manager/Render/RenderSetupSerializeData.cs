@@ -35,6 +35,8 @@ namespace MagicaCloth2
         public quaternion initRenderRotation; // 初期化時の基準回転
         public float3 initRenderScale; // 初期化時の基準スケール
 
+        public Mesh originalMesh; // 変更前のオリジナル共有メッシュ(SkinnedMeshRender利用時のみ)
+
         public bool DataValidateMeshCloth(Renderer ren)
         {
             if (setupType != RenderSetupData.SetupType.MeshCloth)
@@ -153,6 +155,7 @@ namespace MagicaCloth2
             skinBoneCount = sd.skinBoneCount;
             transformCount = sd.TransformCount;
             useTransformCount = 0;
+            originalMesh = null;
 
             if (sd.TransformCount > 0)
             {
@@ -180,6 +183,12 @@ namespace MagicaCloth2
                         // 通常メッシュはそのまま
                         for (int i = 0; i < tcnt; i++)
                             useTransformIndexList.Add(i);
+                    }
+
+                    // オリジナルメッシュを記録
+                    if (sd.originalMesh && sd.originalMesh.name.Contains("(Clone)") == false)
+                    {
+                        originalMesh = sd.originalMesh;
                     }
                 }
                 else
@@ -288,6 +297,9 @@ namespace MagicaCloth2
             if (transformArray != null)
                 foreach (var t in transformArray)
                     hash += t != null ? (456 + t.childCount * 789) : 0;
+
+            if (originalMesh != null)
+                hash += originalMesh.vertexCount;
 
             return hash;
         }

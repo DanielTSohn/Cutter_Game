@@ -395,15 +395,30 @@ namespace MagicaCloth2
                         var pbpos = stepBasicPositionBuffer[p_pindex];
                         var pbrot = stepBasicRotationBuffer[p_pindex];
 
+                        // 安全確認
+                        var bv = bpos - pbpos;
+                        var blen = math.length(bv);
+                        if (blen <= Define.System.Epsilon)
+                        {
+                            lengthBufferArray[pindex] = -1.0f;
+                            //Debug.Log($"blen <= 0.0f!");
+                            continue;
+                        }
+                        else
+                        {
+                            lengthBufferArray[pindex] = blen;
+                        }
+
                         if (useAngleLimit)
                         {
                             // 現在ベクトル長
                             float vlen = math.distance(npos, pnpos);
 
                             // 親からの基本姿勢
-                            var bv = bpos - pbpos;
-                            Develop.Assert(math.length(bv) > 0.0f);
-                            var v = math.normalize(bv);
+                            //var bv = bpos - pbpos;
+                            //Develop.Assert(math.length(bv) > 0.0f);
+                            //var v = math.normalize(bv);
+                            var v = bv / blen;
                             var ipq = math.inverse(pbrot);
                             float3 localPos = math.mul(ipq, v);
                             quaternion localRot = math.mul(ipq, brot);
@@ -467,6 +482,9 @@ namespace MagicaCloth2
                         var pattr = attributes[p_vindex];
                         var pInvMass = MathUtility.CalcInverseMass(frictionArray[p_pindex]);
 
+                        // 親からの距離、および安全確認フラグ(マイナス値の場合はこの区間の復元を取りやめる）
+                        float blen = lengthBufferArray[pindex];
+
                         //=====================================================
                         // Angle Limit
                         //=====================================================
@@ -477,71 +495,80 @@ namespace MagicaCloth2
                             float3 localPos = localPosBufferArray[pindex];
                             quaternion localRot = localRotBufferArray[pindex];
 
-                            // 現在のベクトル
-                            float3 v = cpos - ppos;
-
-                            // 復元すべきベクトル
-                            float3 tv = math.mul(prot, localPos);
-
-                            // ベクトル長修正
-                            float vlen = math.length(v);
-                            float blen = lengthBufferArray[pindex];
-                            vlen = math.lerp(vlen, blen, 0.5f); // 計算前の距離に徐々に近づける
-                            Develop.Assert(vlen > 0.0f);
-                            v = math.normalize(v) * vlen;
-
-                            // ベクトル角度クランプ
-                            float maxAngleDeg = angleParam.limitCurveData.MC2EvaluateCurve(cdepth);
-                            float maxAngleRad = math.radians(maxAngleDeg);
-                            float angle = MathUtility.Angle(v, tv);
-                            float3 rv = v;
-                            if (angle > maxAngleRad)
+                            // 安全確認
+                            if (blen <= 0.0f)
                             {
-                                // stiffness
-                                float recoveryAngle = math.lerp(angle, maxAngleRad, limitStiffness);
-
-                                MathUtility.ClampAngle(v, tv, recoveryAngle, out rv);
+                                nextPosArray[pindex] = ppos;
+                                rotationBufferArray[pindex] = prot;
                             }
-
-                            // 回転中心割合
-                            float3 rotPos = ppos + v * limitRotRatio;
-
-                            // 親と子のそれぞれの更新位置
-                            float3 pfpos = rotPos - rv * limitRotRatio;
-                            float3 cfpos = rotPos + rv * (1.0f - limitRotRatio);
-
-                            // 加算
-                            float3 padd = pfpos - ppos;
-                            float3 cadd = cfpos - cpos;
-
-                            // 摩擦考慮
-                            cadd *= cInvMass;
-                            padd *= pInvMass;
-
-                            const float attn = Define.System.AngleLimitAttenuation;
-
-                            // 子の書き込み
-                            if (cattr.IsMove())
+                            else
                             {
-                                cpos += cadd;
-                                nextPosArray[pindex] = cpos;
-                                velocityPosArray[pindex] = velocityPosArray[pindex] + cadd * attn;
-                            }
+                                // 現在のベクトル
+                                float3 v = cpos - ppos;
 
-                            // 親の書き込み
-                            if (pattr.IsMove())
-                            {
-                                ppos += padd;
-                                nextPosArray[p_pindex] = ppos;
-                                velocityPosArray[p_pindex] = velocityPosArray[p_pindex] + padd * attn;
-                            }
+                                // 復元すべきベクトル
+                                float3 tv = math.mul(prot, localPos);
 
-                            // 回転補正
-                            v = cpos - ppos;
-                            var nrot = math.mul(prot, localRot);
-                            var q = MathUtility.FromToRotation(tv, v);
-                            nrot = math.mul(q, nrot);
-                            rotationBufferArray[pindex] = nrot;
+                                // ベクトル長修正
+                                float vlen = math.length(v);
+                                //float blen = lengthBufferArray[pindex];
+                                vlen = math.lerp(vlen, blen, 0.5f); // 計算前の距離に徐々に近づける
+                                Debug.Assert(vlen > 0.0f);
+                                v = math.normalize(v) * vlen;
+
+                                // ベクトル角度クランプ
+                                float maxAngleDeg = angleParam.limitCurveData.MC2EvaluateCurve(cdepth);
+                                float maxAngleRad = math.radians(maxAngleDeg);
+                                float angle = MathUtility.Angle(v, tv);
+                                float3 rv = v;
+                                if (angle > maxAngleRad)
+                                {
+                                    // stiffness
+                                    float recoveryAngle = math.lerp(angle, maxAngleRad, limitStiffness);
+
+                                    MathUtility.ClampAngle(v, tv, recoveryAngle, out rv);
+                                }
+
+                                // 回転中心割合
+                                float3 rotPos = ppos + v * limitRotRatio;
+
+                                // 親と子のそれぞれの更新位置
+                                float3 pfpos = rotPos - rv * limitRotRatio;
+                                float3 cfpos = rotPos + rv * (1.0f - limitRotRatio);
+
+                                // 加算
+                                float3 padd = pfpos - ppos;
+                                float3 cadd = cfpos - cpos;
+
+                                // 摩擦考慮
+                                cadd *= cInvMass;
+                                padd *= pInvMass;
+
+                                const float attn = Define.System.AngleLimitAttenuation;
+
+                                // 子の書き込み
+                                if (cattr.IsMove())
+                                {
+                                    cpos += cadd;
+                                    nextPosArray[pindex] = cpos;
+                                    velocityPosArray[pindex] = velocityPosArray[pindex] + cadd * attn;
+                                }
+
+                                // 親の書き込み
+                                if (pattr.IsMove())
+                                {
+                                    ppos += padd;
+                                    nextPosArray[p_pindex] = ppos;
+                                    velocityPosArray[p_pindex] = velocityPosArray[p_pindex] + padd * attn;
+                                }
+
+                                // 回転補正
+                                v = cpos - ppos;
+                                var nrot = math.mul(prot, localRot);
+                                var q = MathUtility.FromToRotation(tv, v);
+                                nrot = math.mul(q, nrot);
+                                rotationBufferArray[pindex] = nrot;
+                            }
                         }
 
                         //=====================================================
@@ -551,58 +578,66 @@ namespace MagicaCloth2
                         {
                             //Debug.Log($"pindex:{pindex}, p_pindex:{p_pindex}");
 
-                            // 現在のベクトル
-                            float3 v = cpos - ppos;
-
-                            // 復元すべきベクトル
-                            float3 tv = restorationVectorBufferArray[pindex];
-
-                            // 復元力
-                            float restorationStiffness = angleParam.restorationStiffness.MC2EvaluateCurveClamp01(cdepth);
-                            restorationStiffness = math.saturate(restorationStiffness * simulationPower.w);
-
-                            //int _pindex = indexBuffer[i] + p_start;
-                            //Debug.Log($"i:{i} [{_pindex}] stiffness:{restorationStiffness} cdepth:{cdepth}");
-
-                            // 重力方向減衰
-                            restorationStiffness *= gravityFalloff;
-
-                            // 球面線形補間
-                            var q = MathUtility.FromToRotation(v, tv, restorationStiffness);
-                            float3 rv = math.mul(q, v);
-
-                            // 回転中心割合
-                            //float restorationRotRatio = GetRotRatio(tv, gravityVector, gravity, gravityFalloff, iterationRatio);
-                            //int _pindex = indexBuffer[i] + p_start;
-                            //Debug.Log($"i:{i} [{_pindex}] ratio:{restorationRotRatio} cdepth:{cdepth}");
-                            float3 rotPos = ppos + v * restorationRotRatio;
-
-                            // 親と子のそれぞれの更新位置
-                            float3 pfpos = rotPos - rv * restorationRotRatio;
-                            float3 cfpos = rotPos + rv * (1.0f - restorationRotRatio);
-
-                            // 加算
-                            float3 padd = pfpos - ppos;
-                            float3 cadd = cfpos - cpos;
-
-                            // 摩擦考慮
-                            padd *= cInvMass;
-                            cadd *= pInvMass;
-
-                            // 子の書き込み
-                            if (cattr.IsMove())
+                            // 安全確認
+                            if (blen < 0.0f)
                             {
-                                cpos += cadd;
-                                nextPosArray[pindex] = cpos;
-                                velocityPosArray[pindex] = velocityPosArray[pindex] + cadd * restorationAttn;
+                                nextPosArray[pindex] = ppos;
                             }
-
-                            // 親の書き込み
-                            if (pattr.IsMove())
+                            else
                             {
-                                ppos += padd;
-                                nextPosArray[p_pindex] = ppos;
-                                velocityPosArray[p_pindex] = velocityPosArray[p_pindex] + padd * restorationAttn;
+                                // 現在のベクトル
+                                float3 v = cpos - ppos;
+
+                                // 復元すべきベクトル
+                                float3 tv = restorationVectorBufferArray[pindex];
+
+                                // 復元力
+                                float restorationStiffness = angleParam.restorationStiffness.MC2EvaluateCurveClamp01(cdepth);
+                                restorationStiffness = math.saturate(restorationStiffness * simulationPower.w);
+
+                                //int _pindex = indexBuffer[i] + p_start;
+                                //Debug.Log($"i:{i} [{_pindex}] stiffness:{restorationStiffness} cdepth:{cdepth}");
+
+                                // 重力方向減衰
+                                restorationStiffness *= gravityFalloff;
+
+                                // 球面線形補間
+                                var q = MathUtility.FromToRotation(v, tv, restorationStiffness);
+                                float3 rv = math.mul(q, v);
+
+                                // 回転中心割合
+                                //float restorationRotRatio = GetRotRatio(tv, gravityVector, gravity, gravityFalloff, iterationRatio);
+                                //int _pindex = indexBuffer[i] + p_start;
+                                //Debug.Log($"i:{i} [{_pindex}] ratio:{restorationRotRatio} cdepth:{cdepth}");
+                                float3 rotPos = ppos + v * restorationRotRatio;
+
+                                // 親と子のそれぞれの更新位置
+                                float3 pfpos = rotPos - rv * restorationRotRatio;
+                                float3 cfpos = rotPos + rv * (1.0f - restorationRotRatio);
+
+                                // 加算
+                                float3 padd = pfpos - ppos;
+                                float3 cadd = cfpos - cpos;
+
+                                // 摩擦考慮
+                                padd *= cInvMass;
+                                cadd *= pInvMass;
+
+                                // 子の書き込み
+                                if (cattr.IsMove())
+                                {
+                                    cpos += cadd;
+                                    nextPosArray[pindex] = cpos;
+                                    velocityPosArray[pindex] = velocityPosArray[pindex] + cadd * restorationAttn;
+                                }
+
+                                // 親の書き込み
+                                if (pattr.IsMove())
+                                {
+                                    ppos += padd;
+                                    nextPosArray[p_pindex] = ppos;
+                                    velocityPosArray[p_pindex] = velocityPosArray[p_pindex] + padd * restorationAttn;
+                                }
                             }
                         }
                     }

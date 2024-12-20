@@ -176,7 +176,7 @@ namespace MagicaCloth2
             InitSerializeData_BoneClothSetupValidationError,
             InitSerializeData_BoneSpringSetupValidationError,
             InitSerializeData_DeserializationError,
-
+            InitSerializeData_InvalidCloneMesh,
         }
     }
 }

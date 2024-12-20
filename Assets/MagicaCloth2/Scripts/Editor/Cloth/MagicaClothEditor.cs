@@ -250,6 +250,11 @@ namespace MagicaCloth2
 
             // 初期化データ
             StaticStringBuilder.AppendLine("[Init Data]");
+            int initVersion = cloth.GetSerializeData2().initData?.initVersion ?? 0;
+            if (initVersion > 0)
+            {
+                StaticStringBuilder.Append($"v{initVersion}: ");
+            }
             if (EditorApplication.isPlaying)
             {
                 StaticStringBuilder.Append($"{cloth.Process.InitDataResult.GetResultString()}");

@@ -444,6 +444,10 @@ namespace MagicaCloth2
             renderHandleList.ForEach(handle => MagicaManager.Render.GetRendererData(handle).GetUsedTransform(transformSet));
             customSkinningBoneRecords.ForEach(rd => rd.GetUsedTransform(transformSet));
             normalAdjustmentTransformRecord?.GetUsedTransform(transformSet);
+
+            // nullを除外する
+            if (transformSet.Contains(null))
+                transformSet.Remove(null);
         }
 
         public void ReplaceTransform(Dictionary<int, Transform> replaceDict)

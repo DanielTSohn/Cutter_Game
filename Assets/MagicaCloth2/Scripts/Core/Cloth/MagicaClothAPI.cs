@@ -156,7 +156,7 @@ namespace MagicaCloth2
             var replaceDict = new Dictionary<int, Transform>();
             foreach (var t in useTransformSet)
             {
-                if (targetTransformDict.ContainsKey(t.name))
+                if (t && targetTransformDict.ContainsKey(t.name))
                 {
                     replaceDict.Add(t.GetInstanceID(), targetTransformDict[t.name]);
                 }

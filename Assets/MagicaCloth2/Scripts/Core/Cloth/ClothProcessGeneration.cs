@@ -22,7 +22,19 @@ namespace MagicaCloth2
             else if (scl.x < 0.0f || scl.y < 0.0f || scl.z < 0.0f)
             {
                 // 負のスケール
-                result.SetError(Define.Result.Init_NegativeScale);
+                // 負のスケールでの初期化は、事前構築もしくは初期化データありの場合許可する
+                var sdata2 = cloth.GetSerializeData2();
+                if (sdata2.preBuildData.UsePreBuild() || (sdata2.initData?.HasData() ?? false))
+                {
+                    // ただし許可されるのは一軸フリップのみ
+                    int flipCount = (scl.x < 0.0f ? 1 : 0) + (scl.y < 0.0f ? 1 : 0) + (scl.z < 0.0f ? 1 : 0);
+                    if (flipCount != 1)
+                    {
+                        result.SetError(Define.Result.Init_NegativeScale);
+                    }
+                }
+                else
+                    result.SetError(Define.Result.Init_NegativeScale);
             }
             else
             {

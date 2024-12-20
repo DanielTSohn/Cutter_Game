@@ -9,7 +9,7 @@ namespace MagicaCloth2
     [System.Serializable]
     public class ClothInitSerializeData : ITransform
     {
-        public const int InitDataVersion = 1;
+        public const int InitDataVersion = 2;
 
         public int initVersion;
         public int localHash;
@@ -91,6 +91,20 @@ namespace MagicaCloth2
             // カスタムスキニングボーン
             if (sdata.customSkinningSetting.skinningBones.Count != customSkinningBoneRecords.Count)
                 return new ResultCode(Define.Result.InitSerializeData_CustomSkinningBoneCountMismatch);
+
+            // V1かつMeshClothかつSkinnedMeshRendererの場合のみ、(Clone)メッシュ利用時は無効とする
+            // これは(Clone)メッシュを再度加工することによりボーンウエイトなどのデータがおかしくなりエラーが発生するため
+            if (initVersion <= 1 && clothType == ClothProcess.ClothType.MeshCloth)
+            {
+                for (int i = 0; i < sdata.sourceRenderers.Count; i++)
+                {
+                    SkinnedMeshRenderer sren = sdata.sourceRenderers[i] as SkinnedMeshRenderer;
+                    if (sren && sren.sharedMesh && sren.sharedMesh.name.Contains("(Clone)"))
+                    {
+                        return new ResultCode(Define.Result.InitSerializeData_InvalidCloneMesh);
+                    }
+                }
+            }
 
             return ResultCode.Success;
         }
