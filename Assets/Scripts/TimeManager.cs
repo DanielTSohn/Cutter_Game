@@ -33,6 +33,7 @@ public class TimeManager : MonoBehaviour
 
         public float Value;
         public int Count = 1;
+        public float Duration;
     }
 
     public static TimeManager Instance { get; private set; }
@@ -154,20 +155,32 @@ public class TimeManager : MonoBehaviour
         bool modify = true;
         if (timeModifiers.TryGetValue(key, out var modifier) && modifier.Count > 0)
         {
+            Debug.Log(modifier.Count);
             modify = false;
+            modifier.Duration = duration * (1 - smoothIn - smoothOut);
+            modifier.Count++;
         }
-
+        Debug.Log(modify);
         if (modify)
         {
             float inDuration = duration * smoothIn;
             float outDuration = duration * smoothOut;
             yield return StartCoroutine(LerpMultiply(key, scale, inDuration));
-            yield return new WaitForGameSeconds(duration - inDuration - outDuration);
+            timeModifiers[key].Duration = duration - inDuration - outDuration;
+            while (timeModifiers.TryGetValue(key, out var value) && value.Count > 0 && value.Duration > 0)
+            {
+                if (!MenuPause)
+                {
+                    value.Duration -= Time.unscaledDeltaTime;
+                    yield return null;
+                }
+                else yield return waitWhileMenu;
+            }
             yield return StartCoroutine(LerpRemoveMultiply(key, scale, outDuration));
         }
         else
         {
-            yield return new WaitForGameSeconds(duration);
+            yield return new WaitForGameSeconds(duration * (1 - smoothIn - smoothOut));
             RemoveMultiply(key);
         }
     }

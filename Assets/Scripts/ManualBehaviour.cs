@@ -68,11 +68,19 @@ public class ManualBehaviour : CutterBehaviour
         distanceCompare = new ColliderComparer(transform.position + slicePlaneOffset + transform.forward * slicePlaneHalfExtents.z + sliceDirection * slicePlaneHalfExtents.x);
     }
 
-    private void FixedUpdate()
+    protected override void Update()
+    {
+        base.Update();
+        if (TimeManager.Instance.MenuPause) return;
+
+        CheckPlane();
+    }
+
+    private void CheckPlane()
     {
         sliceDirection = transform.right;
         if (sliceRight) sliceDirection *= -1;
-        
+
         startPosition = transform.position + slicePlaneOffset + transform.forward * slicePlaneHalfExtents.z;
         hitCount = Physics.OverlapBoxNonAlloc(startPosition, slicePlaneHalfExtents, colliders, transform.rotation, hitLayers, QueryTriggerInteraction.Collide);
         distanceCompare.SetPosition(startPosition + sliceDirection * slicePlaneHalfExtents.x);

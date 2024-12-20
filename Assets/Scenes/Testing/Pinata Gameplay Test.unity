@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 61356816}
   - component: {fileID: 61356815}
   - component: {fileID: 61356822}
+  - component: {fileID: 61356824}
   - component: {fileID: 61356820}
   - component: {fileID: 61356823}
   m_Layer: 7
@@ -297,6 +298,29 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &61356824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61356814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a6a0f7c051abd4583da8769ed2e7fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pierceValue: 1
+  hitParameters:
+    Multiplier: 0.1
+    Time: 2
+    InProportion: 0.1
+    OutProportion: 0.3
+  sliceParameters:
+    Multiplier: 0.2
+    Time: 1
+    InProportion: 0.5
+    OutProportion: 0.25
 --- !u!1 &221991192
 GameObject:
   m_ObjectHideFlags: 0

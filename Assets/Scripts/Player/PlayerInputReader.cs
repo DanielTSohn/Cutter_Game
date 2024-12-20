@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputReader
 {
+    public bool DisableAim;
+    public bool DisableCut;
+
     public event Action<Vector2> AimDirectionUpdated;
     public event Action<bool> CutPerformed;
 
@@ -28,6 +31,17 @@ public class PlayerInputReader
             inputActions["Aim Position"].performed += ReadAimPosition;
     }
 
+    public void EnableInput()
+    {
+        DisableAim = false;
+        DisableCut = false;
+    }
+    public void DisableInput()
+    {
+        DisableAim = true;
+        DisableCut = true;
+    }
+
     private void ReadAimRelative(InputAction.CallbackContext aim)
     {
         AimDirectionUpdated?.Invoke(aim.ReadValue<Vector2>());
@@ -35,6 +49,8 @@ public class PlayerInputReader
 
     private void ReadAimPosition(InputAction.CallbackContext aimRelative)
     {
+        if (DisableAim || TimeManager.Instance.MenuPause) return;
+
         screenCenter.x = Screen.width / 2;
         screenCenter.y = Screen.height / 2;
 
@@ -43,6 +59,8 @@ public class PlayerInputReader
 
     private void ReadCut(InputAction.CallbackContext slice)
     {
+        if (DisableCut || TimeManager.Instance.MenuPause) return;
+
         CutPerformed?.Invoke(slice.performed);
     }
 }
