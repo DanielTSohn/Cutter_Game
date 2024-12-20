@@ -15,10 +15,10 @@ MonoBehaviour:
   active: 1
   OutlineWidth:
     m_OverrideState: 1
-    m_Value: 1.5
+    m_Value: 1.3
   DepthThreshold:
     m_OverrideState: 1
-    m_Value: 900
+    m_Value: 2000
   NormalThreshold:
     m_OverrideState: 1
     m_Value: 1.3

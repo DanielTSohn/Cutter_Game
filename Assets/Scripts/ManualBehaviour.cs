@@ -103,7 +103,7 @@ public class ManualBehaviour : CutterBehaviour
         }
 
         if (sliceables.Count > previousSliceables.Count)
-        {
+        { 
             sliceables.ExceptWith(previousSliceables);
             foreach (var sliceable in sliceables)
             {

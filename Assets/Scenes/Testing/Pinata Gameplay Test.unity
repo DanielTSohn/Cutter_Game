@@ -992,6 +992,7 @@ GameObject:
   - component: {fileID: 1049211003}
   - component: {fileID: 1049211007}
   - component: {fileID: 1049211008}
+  - component: {fileID: 1049211009}
   m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
@@ -1115,6 +1116,29 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1049211009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049211001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a6a0f7c051abd4583da8769ed2e7fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pierceValue: 0
+  hitParameters:
+    Multiplier: 0.01
+    Time: 0.1
+    InProportion: 0.15
+    OutProportion: 0.15
+  sliceParameters:
+    Multiplier: 0.01
+    Time: 0.5
+    InProportion: 0.2
+    OutProportion: 0.2
 --- !u!1 &1328219963
 GameObject:
   m_ObjectHideFlags: 0
