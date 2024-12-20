@@ -141,48 +141,59 @@ public class TimeManager : MonoBehaviour
             else yield return waitWhileMenu;
         }
 
-        RemoveMultiply(key);
+        ClearModifier(key);
     }
 
     private IEnumerator CountUndoMultiply(string key, float scale, float time)
     {
-        MultiplyTimeScale(key, scale);
-        yield return new WaitForGameSeconds(time);
-        RemoveMultiply(key);
-    }
-    private IEnumerator CountUndoMultiplyLerp(string key, float scale, float duration, float smoothIn, float smoothOut)
-    {
-        bool modify = true;
         if (timeModifiers.TryGetValue(key, out var modifier) && modifier.Count > 0)
         {
-            Debug.Log(modifier.Count);
-            modify = false;
-            modifier.Duration = duration * (1 - smoothIn - smoothOut);
+            float addedDuration = time / Mathf.Pow(2f, modifier.Count);
+            modifier.Duration += addedDuration;
             modifier.Count++;
+
+            yield break;
         }
-        Debug.Log(modify);
-        if (modify)
+
+        MultiplyTimeScale(key, scale);
+        while (timeModifiers.TryGetValue(key, out var value) && value.Count > 0 && value.Duration > 0)
         {
-            float inDuration = duration * smoothIn;
-            float outDuration = duration * smoothOut;
-            yield return StartCoroutine(LerpMultiply(key, scale, inDuration));
-            timeModifiers[key].Duration = duration - inDuration - outDuration;
-            while (timeModifiers.TryGetValue(key, out var value) && value.Count > 0 && value.Duration > 0)
+            if (!MenuPause)
             {
-                if (!MenuPause)
-                {
-                    value.Duration -= Time.unscaledDeltaTime;
-                    yield return null;
-                }
-                else yield return waitWhileMenu;
+                value.Duration -= Time.unscaledDeltaTime;
+                yield return null;
             }
-            yield return StartCoroutine(LerpRemoveMultiply(key, scale, outDuration));
+            else yield return waitWhileMenu;
         }
-        else
+
+        ClearModifier(key);
+    }
+
+    private IEnumerator CountUndoMultiplyLerp(string key, float scale, float duration, float smoothIn, float smoothOut)
+    {
+        if (timeModifiers.TryGetValue(key, out var modifier) && modifier.Count > 0)
         {
-            yield return new WaitForGameSeconds(duration * (1 - smoothIn - smoothOut));
-            RemoveMultiply(key);
+            float addedDuration = duration * (1 - smoothIn - smoothOut) / Mathf.Pow(2f, modifier.Count);
+            modifier.Duration += addedDuration;
+            modifier.Count++;
+
+            yield break;
         }
+
+        float inDuration = duration * smoothIn;
+        float outDuration = duration * smoothOut;
+        yield return StartCoroutine(LerpMultiply(key, scale, inDuration));
+        timeModifiers[key].Duration = duration - inDuration - outDuration;
+        while (timeModifiers.TryGetValue(key, out var value) && value.Count > 0 && value.Duration > 0)
+        {
+            if (!MenuPause)
+            {
+                value.Duration -= Time.unscaledDeltaTime;
+                yield return null;
+            }
+            else yield return waitWhileMenu;
+        }
+        yield return StartCoroutine(LerpRemoveMultiply(key, scale, outDuration));
     }
 
     private void SetModifyFlag()
@@ -233,6 +244,14 @@ public class TimeManager : MonoBehaviour
             {
                 SetModifyFlag();
             }
+        }
+    }
+    public void ClearModifier(string key)
+    {
+        if (timeModifiers.TryGetValue(key, out var modifier))
+        {
+            modifier.Count = 0;
+            SetModifyFlag();
         }
     }
 

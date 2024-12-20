@@ -313,14 +313,14 @@ MonoBehaviour:
   pierceValue: 1
   hitParameters:
     Multiplier: 0.1
-    Time: 2
+    Time: 3
     InProportion: 0.1
     OutProportion: 0.3
   sliceParameters:
-    Multiplier: 0.2
-    Time: 1
+    Multiplier: 0.75
+    Time: 3
     InProportion: 0.5
-    OutProportion: 0.25
+    OutProportion: 0.5
 --- !u!1 &221991192
 GameObject:
   m_ObjectHideFlags: 0
