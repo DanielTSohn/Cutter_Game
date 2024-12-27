@@ -22,22 +22,28 @@ public class Player : MonoBehaviour
 
     private void OnValidate()
     {
+        Initialize();
+    }
+
+    private void Awake()
+    {
+        Initialize();
+        playerInputReader.AimDirectionUpdated += GetAngle;
+        playerInputReader.CutPerformed += RequestCut;
+    }
+
+    private void Initialize()
+    {
         if (playerInput != null)
         {
-            if (playerInputReader == null) 
+            if (playerInputReader == null)
                 playerInputReader = new(playerInput);
-            else 
+            else
                 playerInputReader.RegisterActions(playerInput);
         }
 
         if (targetPlane != null)
             inputRotator ??= new(targetPlane, axisSetting);
-    }
-
-    private void Awake()
-    {
-        playerInputReader.AimDirectionUpdated += GetAngle;
-        playerInputReader.CutPerformed += RequestCut;
     }
 
     private void GetAngle(Vector2 angle)

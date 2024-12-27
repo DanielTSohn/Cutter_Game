@@ -121,44 +121,55 @@ public class ManualBehaviour : CutterBehaviour
     public void Cut()
     {
         sliceRight = !sliceRight;
-
+        
         for (int i = 0; i < hitCount; i++)
         {
-            if (colliders[i] == null || !colliders[i].TryGetComponent(out MeshTarget target)) continue;
+            if (colliders[i] == null) continue;
 
-            Cut(target, transform.position + slicePlaneOffset, transform.up, null, OnCreated);
-        }
-    }
-
-    private void OnCreated(Info info, MeshCreationData data)
-    {
-        Vector3 averagePosition = Vector3.zero;
-        foreach (var gameObject in data.CreatedObjects)
-        {
-            if (gameObject == null) continue;
-            averagePosition += gameObject.transform.position;
-            
-        }
-        averagePosition /= data.CreatedObjects.Length;
-
-        foreach (var gameObject in data.CreatedObjects)
-        {
-            if (gameObject != null && gameObject.TryGetComponent(out Rigidbody rb))
+            if (colliders[i].TryGetComponent(out Sliceable sliceable))
             {
-                rb.AddForce((rb.position - averagePosition).normalized * explosionForce + sliceDirection * sliceForce, ForceMode.VelocityChange);
+                Cut(sliceable.MeshTarget, transform.position + slicePlaneOffset, transform.up, null, (info, data) =>
+                {
+                    Vector3 averagePosition = Vector3.zero;
+                    foreach (var gameObject in data.CreatedObjects)
+                    {
+                        if (gameObject == null) continue;
+                        averagePosition += gameObject.transform.position;
+
+                    }
+                    averagePosition /= data.CreatedObjects.Length;
+
+                    GameObject targetObject = info.MeshTarget.gameObject;
+                    int layer = targetObject.layer;
+                    string tag = targetObject.tag;
+
+                    sliceable.TriggerSliceFeedback();
+
+                    foreach (var createdObject in data.CreatedObjects)
+                    {
+                        if (createdObject == null) continue;
+
+                        if (createdObject.TryGetComponent(out Rigidbody rb))
+                        {
+                            rb.AddForce((rb.position - averagePosition).normalized * explosionForce + sliceDirection * sliceForce, ForceMode.VelocityChange);
+                        }
+                    }
+
+                    foreach (var target in data.CreatedTargets)
+                    {
+                        if (target == null) continue;
+
+                        target.gameObject.layer = layer;
+                        target.gameObject.tag = tag;
+                        var addedSliceable = target.gameObject.AddComponent<Sliceable>();
+                        addedSliceable.Initialize(sliceable, target);
+                        previousSliceables.Add(addedSliceable);
+                    }
+                });
             }
-        }
-
-        if (info.MeshTarget.TryGetComponent(out Sliceable sliceable))
-        {
-            sliceable.TriggerSliceFeedback();
-
-            foreach (var target in data.CreatedTargets)
+            else if (colliders[i].TryGetComponent(out MeshTarget target))
             {
-                if (target == null) continue;
-                var addedSliceable = target.gameObject.AddComponent<Sliceable>();
-                addedSliceable.Initialize(sliceable);
-                previousSliceables.Add(addedSliceable);
+                Cut(target, transform.position + slicePlaneOffset, transform.up, null, null);
             }
         }
     }

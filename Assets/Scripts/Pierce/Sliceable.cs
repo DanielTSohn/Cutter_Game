@@ -1,7 +1,12 @@
+using DynamicMeshCutter;
 using UnityEngine;
 
 public class Sliceable : MonoBehaviour
 {
+    public MeshTarget MeshTarget => meshTarget;
+    [SerializeField]
+    private MeshTarget meshTarget;
+
     public int PierceValue { get => pierceValue; set => pierceValue = value; }
     [SerializeField]
     private int pierceValue;
@@ -9,13 +14,12 @@ public class Sliceable : MonoBehaviour
     [SerializeField]
     private TimeScaleParameters hitParameters, sliceParameters;
 
-    public virtual void Initialize(Sliceable parent)
+    public virtual void Initialize(Sliceable parent, MeshTarget target)
     {
         PierceValue = parent.PierceValue;
-        gameObject.layer = parent.gameObject.layer;
-        gameObject.tag = parent.gameObject.tag;
         hitParameters = parent.hitParameters;
         sliceParameters = parent.sliceParameters;
+        meshTarget = target;
     }
 
     public void TriggerHitFeedback()
