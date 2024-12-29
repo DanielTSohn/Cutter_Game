@@ -7,6 +7,7 @@ public class TimeScaleParametersInspector : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        var name = property.FindPropertyRelative("ID");
         var multiplier = property.FindPropertyRelative("Multiplier");
         var time = property.FindPropertyRelative("Time");
         var inProportion = property.FindPropertyRelative("InProportion");
@@ -21,6 +22,9 @@ public class TimeScaleParametersInspector : PropertyDrawer
         if (property.isExpanded)
         {
             EditorGUI.indentLevel++;
+
+            Rect namePosition = new(position.min.x, position.min.y + lines++ * EditorGUIUtility.singleLineHeight, position.size.x, EditorGUIUtility.singleLineHeight);
+            name.stringValue = EditorGUI.TextField(namePosition, name.stringValue);
 
             Rect multiplierPosition = new(position.min.x, position.min.y + lines++ * EditorGUIUtility.singleLineHeight, position.size.x, EditorGUIUtility.singleLineHeight);
             multiplier.floatValue = EditorGUI.Slider(multiplierPosition, multiplier.name, multiplier.floatValue, 0, 2);
@@ -51,6 +55,7 @@ public class TimeScaleParametersInspector : PropertyDrawer
             EditorGUI.indentLevel--;
         }
 
+        EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
         EditorGUI.indentLevel--;
         EditorGUI.EndProperty();
     }

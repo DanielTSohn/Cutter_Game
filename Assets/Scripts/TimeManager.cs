@@ -235,6 +235,10 @@ public class TimeManager : MonoBehaviour
     {
         StartCoroutine(CountUndoMultiplyLerp(key, scale, time, smoothIn, smoothOut));
     }
+    public void MultiplyTimeScaleSmooth(in TimeScaleParameters parameters)
+    {
+        StartCoroutine(CountUndoMultiplyLerp(parameters.ID, parameters.Multiplier, parameters.Time, parameters.InProportion, parameters.OutProportion));
+    }
 
     public void RemoveMultiply(string key)
     {

@@ -12,7 +12,7 @@ public class Sliceable : MonoBehaviour
     private int pierceValue;
 
     [SerializeField]
-    private TimeScaleParameters hitParameters, sliceParameters;
+    private TimeScaleParametersSO hitParameters, sliceParameters;
 
     public virtual void Initialize(Sliceable parent, MeshTarget target)
     {
@@ -24,10 +24,10 @@ public class Sliceable : MonoBehaviour
 
     public void TriggerHitFeedback()
     {
-        if (hitParameters.Time > 0) TimeManager.Instance.MultiplyTimeScaleSmooth(name + " Hit", hitParameters.Multiplier, hitParameters.Time, hitParameters.InProportion, hitParameters.OutProportion);
+        if (hitParameters.Time > 0) TimeManager.Instance.MultiplyTimeScaleSmooth(hitParameters.Parameters);
     }
     public void TriggerSliceFeedback()
     {
-        if (sliceParameters.Time > 0) TimeManager.Instance.MultiplyTimeScaleSmooth(name + " Slice", sliceParameters.Multiplier, sliceParameters.Time, sliceParameters.InProportion, sliceParameters.OutProportion);
+        if (sliceParameters.Time > 0) TimeManager.Instance.MultiplyTimeScaleSmooth(sliceParameters.Parameters);
     }
 }
