@@ -126,20 +126,20 @@ namespace DynamicMeshCutter
             _asyncWorker = null;
         }
 
-        private void OnApplicationQuit()
+        protected virtual void OnApplicationQuit()
         {
             ApplicationHasQuit = true;
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             ApplicationHasQuit = false;
         }
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _cutterIsEnabled = true;
         }
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             _cutterIsEnabled = false;
             Terminate();

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform targetPlane;
     [SerializeField]
-    private ManualBehaviour planeCutter;
+    private Cutter cutter;
 
     [Foldout("Cut Plane")]
     [SerializeField]
@@ -52,6 +52,6 @@ public class Player : MonoBehaviour
     }
     private void RequestCut(bool cut)
     {
-        planeCutter.Cut();
+        cutter.StartCut();
     }
 }

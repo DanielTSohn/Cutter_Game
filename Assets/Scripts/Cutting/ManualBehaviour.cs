@@ -34,12 +34,12 @@ public class ManualBehaviour : CutterBehaviour
 
     [Header("Slice Parameters"), Space(5)]
     [SerializeField, Min(0)]
-    private long pierceCap;
+    private int pierceCap;
 
     [SerializeField, Min(0)]
-    private long checkCap;
+    private int checkCap;
     [SerializeField]
-    private float explosionForce;
+    private float seperationForce;
     [SerializeField]
     private float sliceForce;
     [SerializeField, Min(0)]
@@ -52,12 +52,8 @@ public class ManualBehaviour : CutterBehaviour
     private Collider[] colliders;
     private ColliderComparer distanceCompare;
 
-    private readonly HashSet<Sliceable> sliceables = new();
-    private HashSet<Sliceable> previousSliceables = new();
-
     private bool sliceRight = false;
     private Vector3 sliceDirection;
-    private long pierceCount;
     private int hitCount;
     private Vector3 startPosition;
 
@@ -85,91 +81,62 @@ public class ManualBehaviour : CutterBehaviour
         hitCount = Physics.OverlapBoxNonAlloc(startPosition, slicePlaneHalfExtents, colliders, transform.rotation, hitLayers, QueryTriggerInteraction.Collide);
         distanceCompare.SetPosition(startPosition + sliceDirection * slicePlaneHalfExtents.x);
         Array.Sort(colliders, 0, hitCount, distanceCompare);
-        pierceCount = pierceCap;
+    }
 
-        sliceables.Clear();
-        for (int i = 0; i < hitCount; i++)
+    private void OnCreated(Info info, MeshCreationData creationData)
+    {
+        Vector3 averagePosition = Vector3.zero;
+        Action<Vector3> OnAveraged = null;
+
+        foreach (var createdObject in creationData.CreatedObjects)
         {
-            if (colliders[i] != null && colliders[i].TryGetComponent(out Sliceable sliceable))
+            if (createdObject == null) continue;
+
+            averagePosition += createdObject.transform.position;
+            if (createdObject.TryGetComponent(out Rigidbody rb))
             {
-                sliceables.Add(sliceable);
-                pierceCount -= sliceable.PierceValue;
-                if (pierceCount < 0)
+                OnAveraged += (position) =>
                 {
-                    hitCount = i;
-                    break;
-                }
+                    if (rb != null)
+                        rb.AddForce((rb.position - averagePosition).normalized * seperationForce + sliceDirection * sliceForce, ForceMode.VelocityChange);
+                };
             }
         }
 
-        if (sliceables.Count > previousSliceables.Count)
-        { 
-            sliceables.ExceptWith(previousSliceables);
-            foreach (var sliceable in sliceables)
-            {
-                sliceable.TriggerHitFeedback();
-            }
-        }
-        else
+        averagePosition /= creationData.CreatedObjects.Length;
+        OnAveraged?.Invoke(averagePosition);
+
+        int layer = info.MeshTarget.gameObject.layer;
+        string tag = info.MeshTarget.gameObject.tag;
+        foreach (var createdTarget in creationData.CreatedTargets)
         {
-            previousSliceables.Clear();
-        }
+            if (createdTarget == null) continue;
 
-        previousSliceables.UnionWith(sliceables);
+            createdTarget.gameObject.layer = layer;
+            createdTarget.tag = tag;
+        }
     }
 
     public void Cut()
     {
         sliceRight = !sliceRight;
-        
+
+        long pierceCount = pierceCap;
         for (int i = 0; i < hitCount; i++)
         {
             if (colliders[i] == null) continue;
 
-            if (colliders[i].TryGetComponent(out Sliceable sliceable))
+            if (colliders[i].TryGetComponent(out Target target))
             {
-                Cut(sliceable.MeshTarget, transform.position + slicePlaneOffset, transform.up, null, (info, data) =>
-                {
-                    Vector3 averagePosition = Vector3.zero;
-                    foreach (var gameObject in data.CreatedObjects)
-                    {
-                        if (gameObject == null) continue;
-                        averagePosition += gameObject.transform.position;
+                pierceCount -= target.PierceValue;
+                if (pierceCount < 0) break;
 
-                    }
-                    averagePosition /= data.CreatedObjects.Length;
-
-                    GameObject targetObject = info.MeshTarget.gameObject;
-                    int layer = targetObject.layer;
-                    string tag = targetObject.tag;
-
-                    sliceable.TriggerSliceFeedback();
-
-                    foreach (var createdObject in data.CreatedObjects)
-                    {
-                        if (createdObject == null) continue;
-
-                        if (createdObject.TryGetComponent(out Rigidbody rb))
-                        {
-                            rb.AddForce((rb.position - averagePosition).normalized * explosionForce + sliceDirection * sliceForce, ForceMode.VelocityChange);
-                        }
-                    }
-
-                    foreach (var target in data.CreatedTargets)
-                    {
-                        if (target == null) continue;
-
-                        target.gameObject.layer = layer;
-                        target.gameObject.tag = tag;
-                        var addedSliceable = target.gameObject.AddComponent<Sliceable>();
-                        addedSliceable.Initialize(sliceable, target);
-                        previousSliceables.Add(addedSliceable);
-                    }
-                });
+                if (--target.PierceValue <= 0) target.OnSlice();
             }
-            else if (colliders[i].TryGetComponent(out MeshTarget target))
+
+            if (colliders[i].TryGetComponent(out MeshTarget meshTarget))
             {
-                Cut(target, transform.position + slicePlaneOffset, transform.up, null, null);
+                Cut(meshTarget, transform.position + slicePlaneOffset, transform.up, null, OnCreated);
             }
         }
     }
