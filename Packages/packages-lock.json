@@ -9,20 +9,9 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.barracuda": {
-      "version": "3.0.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.burst": "1.6.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.imageconversion": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.burst": {
       "version": "1.8.18",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -59,13 +48,6 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.device-simulator.devices": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.editorcoroutines": {
       "version": "1.0.0",
       "depth": 0,
       "source": "registry",
