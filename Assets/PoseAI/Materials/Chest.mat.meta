@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4c04820da4922674e941911eb98f0bd4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 278009
+  packageName: Pose AI
+  packageVersion: 1.0
+  assetPath: Assets/PoseAI/Materials/Chest.mat
+  uploadId: 679420

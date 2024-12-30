@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c819b36eca5744c4d9ed1f9234181af9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 278009
+  packageName: Pose AI
+  packageVersion: 1.0
+  assetPath: Assets/PoseAI/Scripts/ImagePoseCanvasController.cs
+  uploadId: 679420

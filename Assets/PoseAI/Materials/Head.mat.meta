@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 43f6c2f9863a1ce499c924be422deeb1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 278009
+  packageName: Pose AI
+  packageVersion: 1.0
+  assetPath: Assets/PoseAI/Materials/Head.mat
+  uploadId: 679420

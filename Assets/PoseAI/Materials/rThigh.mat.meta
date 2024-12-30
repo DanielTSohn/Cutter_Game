@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bfccbee6998dc32429624cd2b8ebf7f3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 278009
+  packageName: Pose AI
+  packageVersion: 1.0
+  assetPath: Assets/PoseAI/Materials/rThigh.mat
+  uploadId: 679420

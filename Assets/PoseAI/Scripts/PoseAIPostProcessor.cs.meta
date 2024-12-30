@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c962224ab95cf4e4c9d7bc18053a7f96
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 278009
+  packageName: Pose AI
+  packageVersion: 1.0
+  assetPath: Assets/PoseAI/Scripts/PoseAIPostProcessor.cs
+  uploadId: 679420

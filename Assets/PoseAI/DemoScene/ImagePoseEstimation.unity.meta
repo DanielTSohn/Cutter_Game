@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: affe5be7e6b87cf40a0a5ef9a5ff5a02
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 278009
+  packageName: Pose AI
+  packageVersion: 1.0
+  assetPath: Assets/PoseAI/DemoScene/ImagePoseEstimation.unity
+  uploadId: 679420
