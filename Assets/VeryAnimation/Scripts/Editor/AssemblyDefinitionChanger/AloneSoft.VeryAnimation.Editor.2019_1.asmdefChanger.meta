@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 03b32bb0bf69a7e439e4e2c3eaa9e52f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 96826
+  packageName: Very Animation
+  packageVersion: 1.2.27
+  assetPath: Assets/VeryAnimation/Scripts/Editor/AssemblyDefinitionChanger/AloneSoft.VeryAnimation.Editor.2019_1.asmdefChanger
+  uploadId: 701537

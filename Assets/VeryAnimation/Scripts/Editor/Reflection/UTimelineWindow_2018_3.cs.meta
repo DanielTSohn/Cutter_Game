@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5aa3bb969ce9b1349894ee27395c41cf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 96826
+  packageName: Very Animation
+  packageVersion: 1.2.27
+  assetPath: Assets/VeryAnimation/Scripts/Editor/Reflection/UTimelineWindow_2018_3.cs
+  uploadId: 701537

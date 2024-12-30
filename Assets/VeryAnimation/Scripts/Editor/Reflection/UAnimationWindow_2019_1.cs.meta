@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 24f765c441b704d449263792d47ffa4d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 96826
+  packageName: Very Animation
+  packageVersion: 1.2.27
+  assetPath: Assets/VeryAnimation/Scripts/Editor/Reflection/UAnimationWindow_2019_1.cs
+  uploadId: 701537
