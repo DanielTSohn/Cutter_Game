@@ -61,8 +61,8 @@ static bool UseSSOL = true;
 static string UseSSOLStat = "Use Screen Space Outline";
 static string OLType = "Traditional";
 
-static bool remoout = true;
-static string remooutstat = "Remove Outline";
+static bool remoout = false;
+static string remooutstat = "Add Outline";
 
 static bool twofourfive_target = false;
 static string twofourfive_target_string = "Change shader compilation target to 4.5";

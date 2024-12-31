@@ -272,10 +272,10 @@ SubShader
 	Pass {
 
 Name"Outline"
-Tags{"LightMode"="SRPDefaultUnlit"}
-//OL_NRE
+Tags{"LightMode"="remove"}
+//OL_RE
 
-Cull [_DoubleSidedOutline]//OL_RCUL
+//Cull [_DoubleSidedOutline]//OL_RCUL
 Blend[_BleModSour][_BleModDest]
 
 		Stencil {

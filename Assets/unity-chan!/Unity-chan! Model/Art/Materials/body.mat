@@ -142,7 +142,7 @@ Material:
     - _ClipAdju: 0
     - _Compa: 4
     - _ComputeMeshIndex: 0
-    - _Culling: 2
+    - _Culling: 0
     - _CustomLightDirectionFollowObjectRotation: 0
     - _CustomLightDirectionIntensity: 0
     - _Cutout: 0
