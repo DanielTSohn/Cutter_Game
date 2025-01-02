@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform targetPlane;
     [SerializeField]
+    private PlayerAnimatorLinker animatorLinker;
+    [SerializeField]
     private Cutter cutter;
 
     [Foldout("Cut Plane")]
@@ -48,7 +50,11 @@ public class Player : MonoBehaviour
 
     private void GetAngle(Vector2 angle)
     {
+        if (cutter.SliceRight) angle *= -1;
+
         inputRotator.SetRotation(Vector2.SignedAngle(Vector2.right, angle));
+
+        animatorLinker.SetAim(angle.normalized, angle.magnitude);
     }
     private void RequestCut(bool cut)
     {

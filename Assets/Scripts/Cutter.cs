@@ -14,6 +14,7 @@ public class Cutter : MonoBehaviour
     [SerializeField]
     private float sliceForce;
 
+    public bool SliceRight => sliceRight;
     private bool sliceRight = false;
     private Vector3 sliceDirection;
 

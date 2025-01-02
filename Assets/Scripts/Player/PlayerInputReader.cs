@@ -12,7 +12,6 @@ public class PlayerInputReader
     public event Action<bool> CutPerformed;
 
     private Camera playerCamera;
-    private Vector2 screenCenter = new();
 
     public PlayerInputReader(PlayerInput playerInput)
     {
@@ -42,19 +41,20 @@ public class PlayerInputReader
         DisableCut = true;
     }
 
-    private void ReadAimRelative(InputAction.CallbackContext aim)
+    private void ReadAimRelative(InputAction.CallbackContext aimRelative)
     {
-        AimDirectionUpdated?.Invoke(aim.ReadValue<Vector2>());
+        AimDirectionUpdated?.Invoke(aimRelative.ReadValue<Vector2>());
     }
 
-    private void ReadAimPosition(InputAction.CallbackContext aimRelative)
+    private void ReadAimPosition(InputAction.CallbackContext aimPosition)
     {
         if (DisableAim || TimeManager.Instance.MenuPause) return;
 
-        screenCenter.x = Screen.width / 2;
-        screenCenter.y = Screen.height / 2;
+        Vector2 relativePosition = aimPosition.ReadValue<Vector2>();
+        relativePosition.x /= playerCamera.scaledPixelWidth;
+        relativePosition.y /= playerCamera.scaledPixelHeight;
 
-        AimDirectionUpdated?.Invoke((aimRelative.ReadValue<Vector2>() - screenCenter).normalized);
+        AimDirectionUpdated?.Invoke(Vector2.ClampMagnitude((relativePosition - (Vector2.one * 0.5f)) * 2, 1));
     }
 
     private void ReadCut(InputAction.CallbackContext slice)
