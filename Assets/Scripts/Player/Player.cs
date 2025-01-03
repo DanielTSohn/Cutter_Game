@@ -5,13 +5,13 @@ using VInspector;
 public class Player : MonoBehaviour
 {
     [Header("Dependencies"), Space(5)]
-    [SerializeField, Tooltip("Input Reader")]
+    [SerializeField]
     private PlayerInput playerInput;
-    [SerializeField, Tooltip("Transform plane to rotate")]
+    [SerializeField]
     private Transform targetPlane;
-    [SerializeField, Tooltip("Links input to animations")]
+    [SerializeField]
     private PlayerAnimatorLinker animatorLinker;
-    [SerializeField, Tooltip("Manages mesh cutting")]
+    [SerializeField]
     private Cutter cutter;
 
     [Foldout("Cut Plane")]
@@ -30,15 +30,12 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Initialize();
-        playerInputReader.AimDirectionUpdated += SetAngle;
+        playerInputReader.AimDirectionUpdated += GetAngle;
         playerInputReader.CutPerformed += RequestCut;
 
         playerInputReader.EnableInput();
     }
 
-    /// <summary>
-    /// Gets and registers actions of player input along with initializing compositioned classes
-    /// </summary>
     private void Initialize()
     {
         if (playerInput != null)
@@ -53,12 +50,7 @@ public class Player : MonoBehaviour
             inputRotator ??= new(targetPlane, axisSetting);
     }
 
-    /// <summary>
-    /// Sets angle for the input rotator with given angle
-    /// Reverses direction based on slice direction
-    /// </summary>
-    /// <param name="angle">Angle using cartesian coordinates</param>
-    private void SetAngle(Vector2 angle)
+    private void GetAngle(Vector2 angle)
     {
         if (cutter.SliceRight) angle *= -1;
 
@@ -66,12 +58,8 @@ public class Player : MonoBehaviour
 
         animatorLinker.SetAim(angle.normalized, angle.magnitude);
     }
-    /// <summary>
-    /// Requests cut to cutter
-    /// </summary>
-    /// <param name="cut">True to request cut, false otherwise</param>
     private void RequestCut(bool cut)
     {
-        if (cut) cutter.StartCut();
+        cutter.StartCut();
     }
 }

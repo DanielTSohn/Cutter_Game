@@ -560,7 +560,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &692073653
+--- !u!114 &692073646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -663,6 +663,9 @@ MonoBehaviour:
   - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm
   - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm
   - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm/Character1_RightHand
+  - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm/Character1_RightHand/Katana_Generic02
+  - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm/Character1_RightHand/Katana_Generic02/Cutting
+    Plane
   - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm/Character1_RightHand/Character1_RightHandIndex1
   - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm/Character1_RightHand/Character1_RightHandIndex1/Character1_RightHandIndex2
   - Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm/Character1_RightHand/Character1_RightHandIndex1/Character1_RightHandIndex2/Character1_RightHandIndex3
@@ -740,26 +743,9 @@ MonoBehaviour:
   - mesh_root/tail_bottom
   - mesh_root/uwagi
   - mesh_root/uwagi_BK
-  - VARig
-  - VARig/VARig_RightFoot
-  - VARig/VARig_RightFoot/VARig_RightFoot_Target
-  - VARig/VARig_RightFoot/VARig_RightFoot_Hint
-  - VARig/VARig_LeftFoot
-  - VARig/VARig_LeftFoot/VARig_LeftFoot_Target
-  - VARig/VARig_LeftFoot/VARig_LeftFoot_Hint
-  - VARig/VARig_RightHand
-  - VARig/VARig_RightHand/VARig_RightHand_Target
-  - VARig/VARig_RightHand/VARig_RightHand_Hint
-  - VARig/VARig_LeftHand
-  - VARig/VARig_LeftHand/VARig_LeftHand_Target
-  - VARig/VARig_LeftHand/VARig_LeftHand_Hint
-  - VARig/VARig_Head
-  - VARig/VARig_Head/VARig_Head_Target
-  - Katana_Generic02
-  - Katana_Generic02/Cutting Plane
   showBones: 00000000030000000400000005000000060000000700000008000000090000000a0000000c0000000d0000000e0000000f00000010000000110000002e0000002f00000056000000570000005800000059000000
-  foldoutBones: ae000000a8000000a70000009400000092000000910000008f0000008d0000008c0000008a0000008800000087000000850000008300000082000000800000007e0000007c0000007b0000007800000077000000760000007400000072000000700000006e0000006c0000006b0000006a000000680000006700000066000000640000006300000062000000600000005f0000005e0000005c0000005b0000005a000000590000005800000057000000560000005300000052000000500000004f0000004e0000004d0000004c0000004b000000490000004800000046000000440000004300000041000000400000003f0000003e0000003d0000003c0000003a0000003900000037000000320000002f0000002e0000002c0000002a0000002800000026000000240000002300000022000000200000001f0000001e0000001c0000001b0000001a00000018000000170000001600000014000000130000001200000011000000100000000f0000000e0000000d0000000c0000000b000000090000000800000007000000050000000400000003000000020000000100000000000000
-  mirrorBones: ffffffffffffffffffffffff0700000008000000090000000a00000003000000040000000500000006000000ffffffffffffffffffffffff560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f000000700000007100000072000000730000007400000075000000ffffffffffffffffffffffffffffffffffffffffffffffff3500000034000000ffffffff460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f00000050000000510000005200000053000000540000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000ffffffff0e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d000000ffffffff7b0000007c0000007d000000ffffffff77000000780000007900000080000000810000007e0000007f0000008c0000008d0000008e0000008f00000090000000910000009200000093000000940000009500000082000000830000008400000085000000860000008700000088000000890000008a0000008b000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  foldoutBones: 5a000000960000009400000093000000910000008f0000008e0000008c0000008a0000008900000087000000850000008400000082000000800000007e0000007d0000007a0000007900000078000000760000007400000072000000700000006e0000006d0000006c0000006a00000069000000680000006600000065000000640000006200000061000000600000005e0000005d0000005c000000590000005800000057000000560000005300000052000000500000004f0000004e0000004d0000004c0000004b000000490000004800000046000000440000004300000041000000400000003f0000003e0000003d0000003c0000003a0000003900000037000000320000002f0000002e0000002c0000002a0000002800000026000000240000002300000022000000200000001f0000001e0000001c0000001b0000001a00000018000000170000001600000014000000130000001200000011000000100000000f0000000e0000000d0000000c0000000b000000090000000800000007000000050000000400000003000000020000000100000000000000
+  mirrorBones: ffffffffffffffffffffffff0700000008000000090000000a00000003000000040000000500000006000000ffffffffffffffffffffffff560000005700000058000000590000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f0000007000000071000000720000007300000074000000750000007600000077000000ffffffffffffffffffffffffffffffffffffffffffffffff3500000034000000ffffffff460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f00000050000000510000005200000053000000540000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000ffffffff0e0000000f0000001000000011000000ffffffffffffffff12000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d000000ffffffff7d0000007e0000007f000000ffffffff790000007a0000007b000000820000008300000080000000810000008e0000008f00000090000000910000009200000093000000940000009500000096000000970000008400000085000000860000008700000088000000890000008a0000008b0000008c0000008d000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
   mirrorBlendShape:
   - renderer: {fileID: 627872456}
     names: []
@@ -774,16 +760,16 @@ MonoBehaviour:
     names: []
     mirrorNames: []
   animatorIkData:
-  - enable: 1
+  - enable: 0
     _fixed: 0
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.039264653, y: 1.1850317, z: 0.99987006}
+    position: {x: 0.28459784, y: 1.6402464, z: 0.755993}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: 2.2857056
+    swivelRotation: -0.000015258789
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -791,11 +777,23 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: -0.032229397, y: 0.86703855, z: 0.18232957}
-    rotation: {x: 0.4352779, y: 0.24109007, z: 0.6869964, w: 0.52957016}
+    position: {x: 0.13930963, y: 1.269563, z: 0.18375409}
+    rotation: {x: -0.051509712, y: -0.53345716, z: -0.040028032, w: -0.8433078}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: 137.49585
+    swivelRotation: 134.32721
+    swivelPosition: {x: 0, y: 0, z: 0}
+    parentPath: 
+  - enable: 0
+    _fixed: 0
+    autoRotation: 0
+    spaceType: 0
+    parent: {fileID: 0}
+    position: {x: 0.075134784, y: 1.4311706, z: -0.033941824}
+    rotation: {x: -0.52358705, y: -0.5039434, z: -0.44504097, w: 0.5232936}
+    headWeight: 1
+    eyesWeight: 0
+    swivelRotation: -98.76477
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -803,11 +801,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.06130635, y: 0.9559707, z: 0.20242076}
-    rotation: {x: 0.40633973, y: -0.072614074, z: -0.63883895, w: 0.6492303}
+    position: {x: -0.105722375, y: 0.104094505, z: 0.14882965}
+    rotation: {x: -0.0042442377, y: -0.0300139, z: 0.0039110687, w: 0.9995328}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: -144.19073
+    swivelRotation: 15.24321
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -815,30 +813,33 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: -0.10347076, y: 0.089636624, z: -0.062386215}
-    rotation: {x: 0.014680337, y: -0.14147429, z: -0.00052474317, w: 0.98983294}
+    position: {x: 0.16322355, y: 0.10161102, z: 0.10422091}
+    rotation: {x: -0.010669509, y: 0.12027681, z: 0.0059589166, w: 0.9926652}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: 12.624817
-    swivelPosition: {x: 0, y: 0, z: 0}
-    parentPath: 
-  - enable: 1
-    _fixed: 0
-    autoRotation: 0
-    spaceType: 0
-    parent: {fileID: 0}
-    position: {x: 0.16227621, y: 0.08845556, z: 0.05558247}
-    rotation: {x: 0.0653648, y: 0.058249455, z: -0.002094984, w: 0.99615765}
-    headWeight: 1
-    eyesWeight: 0
-    swivelRotation: -9.1345215
+    swivelRotation: -42.243195
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   originalIkData: []
   selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: cc2af3197ff50c54c83ef4663b1dd8a4, type: 2}
+  lastSelectAnimationClip: {fileID: 7400000, guid: 50a6b50d756cd104fab1c87da5f4738a, type: 2}
   handPoseList: []
   blendShapeList: []
+--- !u!114 &692073647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627872451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16931e3bbabb00f478bbbe4759af8343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObj: {fileID: 1629803303}
+  isIkActive: 1
+  mixWeight: 1
 --- !u!1 &1133357180
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +917,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1629803303 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1321269628800111523, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
+  m_PrefabInstance: {fileID: 2645788950385206754}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2645788950385206754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -924,19 +930,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1321269628800111523, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321269628800111523, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -82.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321269628800111523, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1862231108760855386, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2139074633745104543, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
-      propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Character1_RightFoot'\n\tTransform 'Character1_LeftFoot'\n\tTransform
-        'Character1_RightHand'\n\tTransform 'Character1_RightUpLeg'\n\tTransform
-        'Character1_LeftUpLeg'\n\tTransform 'Character1_LeftHand'\n\tTransform 'Character1_LeftLeg'\n\tTransform
-        'Character1_Head'\n\tTransform 'Character1_LeftArm'\n\tTransform 'Character1_Neck'\n\tand
-        more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349619, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1588,11 +1596,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349757, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.014208542
+      value: -0.014208534
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349757, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0177089
+      value: -0.017708883
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349759, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2100,7 +2108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349905, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0027492049
+      value: 0.0027492028
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349905, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2108,7 +2116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349905, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0046094162
+      value: 0.004609412
       objectReference: {fileID: 0}
     - target: {fileID: 2139074633754349909, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2326,6 +2334,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.0013553738
       objectReference: {fileID: 0}
+    - target: {fileID: 3694022472326327644, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 656808033}
     - target: {fileID: 3938928124715639616, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2367,13 +2379,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 6437339403195810904, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
+    - {fileID: 5019554755215698896, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2139074633754578175, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 692073653}
+      addedObject: {fileID: 692073646}
+    - targetCorrespondingSourceObject: {fileID: 2139074633754578175, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 692073647}
   m_SourcePrefab: {fileID: 100100000, guid: 59637f214ce2b8c40b8302419f5d02e2, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
