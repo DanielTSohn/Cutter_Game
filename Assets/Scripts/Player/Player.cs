@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     {
         if (cutter.SliceRight) angle *= -1;
 
-        inputRotator.SetRotation(Vector2.SignedAngle(Vector2.right, angle));
+        //inputRotator.SetRotation(Vector2.SignedAngle(Vector2.right, angle));
 
         animatorLinker.SetAim(angle.normalized, angle.magnitude);
     }
