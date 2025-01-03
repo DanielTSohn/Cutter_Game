@@ -9,11 +9,11 @@ public class PlayerInputReader
     /// <summary>
     /// Disables aim action callback
     /// </summary>
-    public bool DisableAim;
+    public bool DisableAim = true;
     /// <summary>
     /// Disables cut action callback
     /// </summary>
-    public bool DisableCut;
+    public bool DisableCut = true;
 
     public event Action<Vector2> AimDirectionUpdated;
     public event Action<bool> CutPerformed;
@@ -45,7 +45,6 @@ public class PlayerInputReader
     /// <summary>
     /// Enables all input
     /// </summary>
-    [Button]
     public void EnableInput()
     {
         DisableAim = false;
@@ -54,7 +53,6 @@ public class PlayerInputReader
     /// <summary>
     /// Disables all input
     /// </summary>
-    [Button]
     public void DisableInput()
     {
         DisableAim = true;

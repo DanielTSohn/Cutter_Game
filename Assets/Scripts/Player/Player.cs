@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
         Initialize();
         playerInputReader.AimDirectionUpdated += SetAngle;
         playerInputReader.CutPerformed += RequestCut;
+
+        playerInputReader.EnableInput();
     }
 
     /// <summary>
